@@ -17,6 +17,12 @@ class Comment(ndb.Model):
     comment = ndb.TextProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
+class MobileData(ndb.Model):
+    ip = ndb.StringProperty()
+    data = ndb.JsonProperty()
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
+
 @app.route('/', methods=['POST','GET'])
 def home():
     """Return a friendly HTTP greeting."""
@@ -48,6 +54,30 @@ def home():
             message['message'] = "comment uploading failed"
             return render_template("comment.html", message=message, user_comment=user_comment.strip())
 
+
+@app.route('/mobiledata', methods=['POST'])
+def mobile_data():
+    try:
+        ip = None
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            ip = request.environ['REMOTE_ADDR']
+        else:
+            ip = request.environ['HTTP_X_FORWARDED_FOR']
+        logging.info("data %s"%request.mimetype)
+        logging.info("data %s"%request.json)
+        logging.info("data %s"%request.get_data())
+        logging.info("data %s"%request.get_json())
+        mdata = MobileData()
+        mdata.ip = ip
+        mdata.data = request.get_json()
+        mdata.put()
+        return jsonify({"status": "success", "message": "data uploaded successfully"})
+    except Exception as e:
+        # traceback.print_exc()
+        logging.info(dir(request))
+        logging.exception("data uploading failed")
+        return jsonify({"status": "error", "message": "data uploading failed"})
+        
 
 
 @app.errorhandler(404)
