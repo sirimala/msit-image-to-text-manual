@@ -14,8 +14,8 @@ handlers:
 #- url: /client
 #  static_dir: client
 - url: /favicon.ico
-  static_files: rgukt.png
-  upload: rgukt.png
+  static_files: favicon.jpeg
+  upload: favicon.jpeg
 
 # This handler tells app engine how to route requests to a WSGI application.
 # The script value is in the format <path.to.module>.<wsgi_application>
