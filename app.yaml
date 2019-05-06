@@ -2,7 +2,6 @@
 # including URL routing, versions, static file uploads, etc. See
 # https://developers.google.com/appengine/docs/python/config/appconfig
 # for details.
-application: comment-box
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -18,9 +17,6 @@ handlers:
   static_files: rgukt.png
   upload: rgukt.png
 
-- url: /butterfly.jpg
-  static_files: butterfly.jpg
-  upload: butterfly.jpg
 # This handler tells app engine how to route requests to a WSGI application.
 # The script value is in the format <path.to.module>.<wsgi_application>
 # where <wsgi_application> is a WSGI application object.

@@ -3,11 +3,28 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-8">
-		<form class="form-inline" action="#" method="post">
-			<img src="/butterfly.jpg" class="image-responsive" alt="">
-			<textarea name="comment" id="comment" cols="80" rows="10"></textarea>
-			<input class="btn btn-default" type="submit" value="search">
-		</form>	
+		<img class='img-responsive' src="/static/images/screenshot-2019-05-06 18-36-32.png" alt="">
+
+		<form class="form-group" action="/" method="post">
+			<textarea name="comment" id="comment" class="form-control" style="min-width: 100%" rows="10">
+				{%if user_comment%}
+					{{user_comment}}
+				{%endif%}
+			</textarea>
+			<input class="btn btn-primary" type="submit" value="submit">
+		</form>
+		{%if message%}
+			{%if message['status'] == "error"%}
+			<div class="alert alert-danger alert-dismissible show" role="alert">
+			{%else%}
+			<div class="alert alert-success alert-dismissible show" role="alert">
+			{%endif%}
+			  {{message['message']}}
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+		{%endif%}	
 	</div>
 </div>
 {% endblock %}
