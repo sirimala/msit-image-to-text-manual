@@ -6,11 +6,7 @@
 		<img class='img-responsive' src="/static/images/screenshot-2019-05-06 18-36-32.png" alt="">
 
 		<form class="form-group" action="/" method="post">
-			<textarea name="comment" id="comment" class="form-control" style="min-width: 100%" rows="10" oninput="myFunction(event)">
-				{%if user_comment%}
-					{{user_comment}}
-				{%endif%}
-			</textarea>
+			<textarea name="comment" id="comment" class="form-control" style="min-width: 100%" rows="10" oninput="myFunction(event)">{%if user_comment%}{{user_comment}}{%endif%}</textarea>
 			<input type="text" hidden="true" name="log" id="log">
 			<input class="btn btn-primary" type="submit" value="submit">
 		</form>
