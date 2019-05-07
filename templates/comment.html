@@ -6,11 +6,12 @@
 		<img class='img-responsive' src="/static/images/screenshot-2019-05-06 18-36-32.png" alt="">
 
 		<form class="form-group" action="/" method="post">
-			<textarea name="comment" id="comment" class="form-control" style="min-width: 100%" rows="10">
+			<textarea name="comment" id="comment" class="form-control" style="min-width: 100%" rows="10" oninput="myFunction(event)">
 				{%if user_comment%}
 					{{user_comment}}
 				{%endif%}
 			</textarea>
+			<input type="text" hidden="true" name="log" id="log">
 			<input class="btn btn-primary" type="submit" value="submit">
 		</form>
 		{%if message%}
@@ -27,4 +28,24 @@
 		{%endif%}	
 	</div>
 </div>
+{% endblock %}
+
+{% block script %}
+<script>
+	var log = [];
+	function myFunction(e) {
+		dict = {};
+		dict["char"] = e.data;
+		dict["action"] = e.inputType;
+		dict["timestamp"] = Date.now();
+		dict["current_text"] = document.getElementById("comment").value;
+		
+		log.push(dict);
+	}
+	$("form").submit(function(e){
+		// console.log(log);
+		document.getElementById("log").value = JSON.stringify(log);
+		// e.preventDefault();
+	});
+</script>
 {% endblock %}

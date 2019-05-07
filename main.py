@@ -16,6 +16,7 @@ class Comment(ndb.Model):
     email = ndb.StringProperty()
     comment = ndb.TextProperty()
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+    log = ndb.TextProperty(default=[])
 
 class MobileData(ndb.Model):
     ip = ndb.StringProperty()
@@ -45,6 +46,7 @@ def home():
             comment = Comment()
             comment.email = user.email()
             comment.comment = user_comment
+            comment.log = request.form['log']
             comment.put()
             return render_template("comment.html", message=message)
         except Exception as e:
