@@ -75,12 +75,29 @@ def mobile_data():
         mdata.put()
         return jsonify({"status": "success", "message": "data uploaded successfully"})
     except Exception as e:
-        # traceback.print_exc()
-        logging.info(dir(request))
+        traceback.print_exc()
+        # logging.info(dir(request))
         logging.exception("data uploading failed")
         return jsonify({"status": "error", "message": "data uploading failed"})
         
-
+@app.route('/get_mobiledata', methods=['GET'])
+def get_mobile_data():
+    try:
+        mobiledata = MobileData().query().fetch()
+        data = []
+        for entry in mobiledata:
+            data.append(
+                    {
+                        "data": entry.data,
+                        "ip": entry.ip,
+                        "timestamp": entry.timestamp
+                    }
+                )
+        print(data)
+        return jsonify(records=data)
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"status": "error", "message": "Exception occurred while fectching the data"})
 
 @app.errorhandler(404)
 def page_not_found(e):
