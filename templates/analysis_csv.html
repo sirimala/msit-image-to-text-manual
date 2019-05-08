@@ -32,7 +32,7 @@
 	    for (var i = 0; i < array.length; i++) {
 	        var line = '';
 	        for (var index in array[i]) {
-	            if (line != '') line += ','
+	            if (line != '') line += '|'
 
 	            line += array[i][index];
 	        }
@@ -76,7 +76,7 @@
 	$("button").on("click", function(){
 		var key = $(this).attr("key");
 		var headers = {
-		    action: 'Action'.replace(/,/g, ''), // remove commas to avoid errors
+		    action: 'Action', //.replace(/,/g, ''), // remove commas to avoid errors
 		    keystroke: "Keystroke",
 		    epoc: "Epoc"
 		};
@@ -110,7 +110,7 @@
 			// format the data
 			itemsNotFormatted.forEach((item) => {
 			    itemsFormatted.push({
-			        action: item.action.replace(/,/g, ''), // remove commas to avoid errors,
+			        action: item.action,//.replace(/,/g, ''), // remove commas to avoid errors,
 			        keystroke: item.keystroke,
 			        epoc: item.epoc
 			    });
