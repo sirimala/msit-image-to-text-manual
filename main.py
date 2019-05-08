@@ -58,7 +58,7 @@ def home():
             logging.exception("comment uploading failed")
             message['status'] = "error"
             message['message'] = "comment uploading failed"
-            return render_template("comment.html", message=message)
+            return render_template("comment.html", message=message, user_comment=user_comment.strip())
 
 
 @app.route('/mobiledata', methods=['POST'])
