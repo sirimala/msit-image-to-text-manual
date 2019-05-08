@@ -128,10 +128,11 @@ def download():
         comment = key.get()
         # print(comment.email, comment.timestamp, comment.comment)
         output["email"] = comment.email
-        print(output["email"])
         output["data"] = []
+        output["levenshtein_distance"] = iterative_levenshtein(comment.comment, actual_text)
+        print(output["email"], output["levenshtein_distance"])
         for entry in json.loads(comment.log):
-            output["data"].append({"action": entry['action'], "keystroke": entry['char'], "epoc": entry['timestamp'], "levenshtein_distance":iterative_levenshtein(entry['current_text'], actual_text)})
+            output["data"].append({"action": entry['action'], "keystroke": entry['char'], "epoc": entry['timestamp']})
         return jsonify(output)
 
 @app.errorhandler(404)

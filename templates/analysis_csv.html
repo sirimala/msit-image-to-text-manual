@@ -78,9 +78,22 @@
 		var headers = {
 		    action: 'Action'.replace(/,/g, ''), // remove commas to avoid errors
 		    keystroke: "Keystroke",
-		    epoc: "Epoc",
-		    levenshtein_distance: "Levenshtein_distance"
+		    epoc: "Epoc"
 		};
+
+		var footers = [{
+				    action: '',
+				    keystroke: "",
+				    epoc: ""
+				},{
+				    action: '',
+				    keystroke: "",
+				    epoc: ""
+				},{
+					action: 'Levinshtein distance',
+				    keystroke: "",
+				    epoc: ""
+				}];
 
 		var itemsNotFormatted = [];
 
@@ -88,6 +101,9 @@
 		var email;
 		$.post( "/download", {key: key}, function(data) {
 		  email = data['email'] || null;
+		  console.log(data['levenshtein_distance']);
+		  levenshtein_distance = data['levenshtein_distance'];
+		  footers[2]['epoc'] = levenshtein_distance;
 		  itemsNotFormatted = data['data'] || []
 		  // console.log([email, data]);
 			// console.log(["after post request", email, itemsNotFormatted]);
@@ -96,10 +112,11 @@
 			    itemsFormatted.push({
 			        action: item.action.replace(/,/g, ''), // remove commas to avoid errors,
 			        keystroke: item.keystroke,
-			        epoc: item.epoc,
-			        levenshtein_distance: item.levenshtein_distance
+			        epoc: item.epoc
 			    });
 			});
+
+			itemsFormatted = itemsFormatted.concat(footers);
 
 			var fileTitle = email; // or 'my-unique-title'
 
